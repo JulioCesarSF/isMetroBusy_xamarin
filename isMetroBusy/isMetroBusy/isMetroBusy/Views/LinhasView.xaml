@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:isMetroBusy.ViewModels"
+             x:Class="isMetroBusy.Views.LinhasView">
+    <ContentPage.BindingContext>
+        <local:LinhasViewModel/>
+    </ContentPage.BindingContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <ListView ItemsSource="{Binding LinhaStatus}"
+                    HasUnevenRows="True"
+                    Margin="5"
+                    IsPullToRefreshEnabled="True"
+                    IsRefreshing="{Binding IsRefreshing}"
+                    RefreshCommand="{Binding RefreshCommand}"
+                    CachingStrategy="RecycleElement"
+                    Grid.Row="0"
+                    SelectionMode="Single"
+                    SelectedItem="{Binding SelectedRow, Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <Grid Margin="10" x:Name="gridViewCell">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="55*"/>
+                                        <ColumnDefinition Width="40*"/>
+                                        <ColumnDefinition Width="5*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="{Binding Nome}" VerticalTextAlignment="Center" FontSize="16"/>
+                                    <Label Grid.Column="1" Text="{Binding Status}" VerticalTextAlignment="Center" FontSize="14" FontAttributes="Bold"/>
+                                    <Image Grid.Column="2"
+                                           IsVisible="{Binding Favorite}" 
+                                           Source="if_star_285661.png"
+                                           WidthRequest="15" HeightRequest="15" 
+                                           VerticalOptions="Center"/>
+                                </Grid>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Label Grid.Row="1" Text="{Binding Status}" VerticalTextAlignment="Center"/>
+        </Grid>
+    </Grid>
+</ContentPage>
